@@ -400,7 +400,7 @@ class _ChatPageState extends State<ChatPage> {
               suffixIcon: Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
-                    color: Colors.indigo),
+                    color: Colors.purple.shade500),
                 padding: EdgeInsets.all(14),
                 child: Icon(
                   Icons.send_rounded,
