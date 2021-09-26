@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:Bedebah/profile.dart';
+import 'package:Bedebah/friend.dart';
 
 class Messenger extends StatefulWidget {
   @override
@@ -6,6 +8,9 @@ class Messenger extends StatefulWidget {
 }
 
 class _MessengerState extends State<Messenger> {
+  TextEditingController _searchController = new TextEditingController();
+
+  get onPressed => null;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,10 +32,81 @@ class _MessengerState extends State<Messenger> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Chat with \nyour friends',
-            style: TextStyle(
-                fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => Profile()),
+                  );
+                },
+                child: Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                        image: AssetImage("assets/images/sheik.png"),
+                        fit: BoxFit.cover),
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 68,
+              ),
+              Text(
+                'Chats',
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey.shade100,
+                ),
+              ),
+              SizedBox(
+                width: 58,
+              ),
+              Container(
+                padding: EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(40),
+                  color: Colors.black12,
+                ),
+                child: Icon(
+                  Icons.add_comment,
+                  size: 20,
+                  color: Colors.white,
+                ),
+              ),
+              SizedBox(),
+            ],
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Container(
+            width: 370,
+            height: 40,
+            decoration: BoxDecoration(
+                color: Colors.grey.shade100,
+                borderRadius: BorderRadius.circular(15)),
+            child: TextField(
+              cursorColor: Colors.black,
+              controller: _searchController,
+              decoration: InputDecoration(
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: Colors.black.withOpacity(0.5),
+                  ),
+                  hintText: "Search",
+                  border: InputBorder.none),
+            ),
+          ),
+          SizedBox(
+            height: 5,
           ),
           Row(
             children: [
@@ -41,7 +117,7 @@ class _MessengerState extends State<Messenger> {
                   color: Colors.black12,
                 ),
                 child: Icon(
-                  Icons.search,
+                  Icons.add_reaction,
                   size: 30,
                   color: Colors.white,
                 ),
@@ -50,19 +126,26 @@ class _MessengerState extends State<Messenger> {
                 width: 15,
               ),
               Expanded(
-                child: Container(
-                  height: 100,
-                  child: ListView.builder(
-                    physics: BouncingScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    itemCount: 8,
-                    itemBuilder: (context, index) {
-                      return Avatar(
-                        margin: EdgeInsets.only(right: 15),
-                        image: 'assets/images/${index + 1}.jpg',
-                      );
-                    },
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => ProfilePage()),
+                    );
+                  },
+                  child: Container(
+                    height: 100,
+                    child: ListView.builder(
+                      physics: BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemCount: 9,
+                      itemBuilder: (context, index) {
+                        return Avatar(
+                          margin: EdgeInsets.only(right: 15),
+                          image: 'assets/images/${index + 1}.jpg',
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
@@ -76,7 +159,7 @@ class _MessengerState extends State<Messenger> {
   Widget _body() {
     return Expanded(
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 30),
+        padding: EdgeInsets.symmetric(horizontal: 35),
         width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
@@ -86,7 +169,14 @@ class _MessengerState extends State<Messenger> {
         child: ListView(
           padding: EdgeInsets.only(top: 35),
           physics: BouncingScrollPhysics(),
+          scrollDirection: Axis.vertical,
           children: [
+            _itemChats(
+              avatar: 'assets/images/1.jpg',
+              name: 'Aisya',
+              chat: 'Assalamualaikum....',
+              time: '06.09',
+            ),
             _itemChats(
               avatar: 'assets/images/2.jpg',
               name: 'Johnny Doe',
@@ -115,13 +205,6 @@ class _MessengerState extends State<Messenger> {
             _itemChats(
               avatar: 'assets/images/7.jpg',
               name: 'Alexander',
-              chat:
-                  'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
-              time: '00.09',
-            ),
-            _itemChats(
-              avatar: 'assets/images/8.jpg',
-              name: 'Alsoher',
               chat:
                   'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
               time: '00.09',

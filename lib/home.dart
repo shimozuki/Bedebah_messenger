@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:Bedebah/login.dart';
+import 'package:Bedebah/register.dart';
 
 class Home extends StatefulWidget {
   const Home({Key key}) : super(key: key);
@@ -82,7 +83,11 @@ class _HomeState extends State<Home> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => Register()),
+                    );
+                  },
                   style: ButtonStyle(
                     foregroundColor:
                         MaterialStateProperty.all<Color>(Colors.purple),
